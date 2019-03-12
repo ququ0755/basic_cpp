@@ -1,5 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* [C++基础入门](1. C++初识.md)
+* [C++基础入门](C++基础入门.md)
 
