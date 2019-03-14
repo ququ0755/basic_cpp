@@ -34,3 +34,6 @@ Settings -&gt; Compiler
 
 ### 2.2.2 add project files
 
+![新建文件](./assets/1552541692540.png)
+
+![1552541739363](./assets/1552541739363.png)
