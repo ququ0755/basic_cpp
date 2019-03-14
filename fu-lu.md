@@ -31,3 +31,6 @@ Settings -&gt; Compiler
 ![空项目](./assets/1552541497338.png) 
 
 ![1552541530268](./assets/1552541530268.png)
+
+### 2.2.2 add project files
+
