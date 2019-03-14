@@ -14,6 +14,8 @@
 
 - 运行程序
 
+  以下为以Code::Blocks为例，Visual Studio参见[附录](./fu-lu.md)
+
 #### 1.1.1 创建项目 
 
 ![创建项目1](./assets/1552213340354.png)
