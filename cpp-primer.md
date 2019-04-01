@@ -14,7 +14,7 @@
 
 - 运行程序
 
-  以下为以Code::Blocks为例，Visual Studio参见[附录](./fu-lu.md)
+  以下为以Code::Blocks为例，Visual Studio参见[附录](./appendix.md)
 
 #### 1.1.1 创建项目 
 

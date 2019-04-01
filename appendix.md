@@ -4,7 +4,7 @@
 
 Settings -&gt; Compiler
 
-### 1.1.1 ToolChain
+### 1.1.1 Tool Chain
 
 ![1552399495254](./assets/1552399495254.png)
 
