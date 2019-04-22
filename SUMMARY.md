@@ -5,6 +5,6 @@
 * [操作系统](os.md)
 * [计算机网络](network.md)
 * [计算机信息安全](secrity.md)
-* [CppPrimer](cpp-primer.md)
-* [Appendix](appendix.md)
+* [C++基础](cpp-primer.md)
+* [附录](appendix.md)
 
