@@ -1,4 +1,4 @@
-# 1. Code::Blocks Configuration
+# 附录 Code::Blocks Configuration
 
 ## 1.1 Compiler
 

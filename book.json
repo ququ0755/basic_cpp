@@ -1,0 +1,10 @@
+{
+    "author": "Wangsenbo",
+    "description": "...",
+    "extension": null,
+    "title": "计算机基础入门",
+    "plugins": [
+        "-highlight",
+        "katex"
+    ]
+}
