@@ -20,6 +20,39 @@ Settings -&gt; Compiler
  "x86\_64-w64-mingw32/include",  
  "lib/gcc/x86\_64-w64-mingw32/8.1.0/include-fixed"
 
+
+
+### 1.2 Project
+
+#### 5.1.1.1 创建项目 
+
+![创建项目1](assets/1552213340354.png)
+
+![创建项目2](assets/1552213388163.png)
+
+#### 5.1.1.2 添加文件
+
+![添加文件](assets/1552213589233.png)
+
+#### 5.1.1.3 编写代码
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "hello world" << endl;
+
+    return 0;
+}
+```
+
+#### 5.1.1.4 运行程序
+
+![运行程序](assets/1552213974552.png)
+
 ## 2. Visual Studio
 
 ### 2.1 Installation
@@ -71,8 +104,3 @@ Settings -&gt; Compiler
 
   
 
-2. 添加类
-
-
-
-## 4. Dev-c++

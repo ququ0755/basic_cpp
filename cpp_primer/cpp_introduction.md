@@ -12,17 +12,31 @@
 
 - 运行程序
 
-  以下为以Code::Blocks为例，Visual Studio参见[附录](../appendix.md)
+  以下为以Dev-C++为例，其他编译器参见[附录](../appendix.md)
 
 #### 3.1.1.1 创建项目 
 
-![创建项目1](../assets/1552213340354.png)
+1. 新建项目：文件 -> 新建 ->项目
 
-![创建项目2](../assets/1552213388163.png)
+![创建项目1](../assets/dev_new_project.png)
+
+2. 选择新建项目的类型：命令行应用程序（Console Application）
+
+![创建项目2](../assets/dev_new_project1.png)
+
+3. 选择项目保存的路径，并定义项目名（这个程序的名字，如游戏），尽量使用英文
+
+   ![创建项目3](../assets/dev_new_project2.png)
 
 #### 3.1.1.2 添加文件
 
-![添加文件](../assets/1552213589233.png)
+1. 在文件 -> 新建 -> 源文件，创建新的C++文件或者头文件，并保存。
+
+![添加文件](../assets/dev_new_project2_0.png)
+
+2. 保存文件
+
+![保存文件](../assets/dev_new_project3.png)
 
 #### 3.1.1.3 编写代码
 
@@ -30,18 +44,25 @@
 #include <iostream>
 
 using namespace std;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-int main()
-{
-    cout << "hello world" << endl;
-
-    return 0;
+int main(int argc, char** argv) {
+	
+	cout << " hello world!" <<endl;
+	
+	return 0;
 }
 ```
 
 #### 3.1.1.4 运行程序
 
-![运行程序](../assets/1552213974552.png)
+运行程序选择工具栏运行图标，或者选择菜单栏：运行 -> 编译&运行。
+
+![运行程序](../assets/dev_new_project5.png)
+
+或者在菜单栏中选择：运行 -> 编译&运行
+
+![运行程序](../assets/dev_new_project4.png)
 
 ### 3.1.2 注释
 
@@ -76,7 +97,7 @@ int main()
     int a = 10;
     
     //打印出a的值
-	cout << "a = " << a << endl;
+	  cout << "a = " << a << endl;
         
     return 0;
 }
@@ -111,6 +132,8 @@ int main()
 }
 ```
 
+
+
 ### 3.1.5 关键字
 
 **作用**：关键字是C++预先保留的单词（标识符）
@@ -122,6 +145,8 @@ int main()
 ![C++常量](../assets/CppWords.png)
 
 > 提示：在给变量或常量起名字的时候，不能使用关键字，否则会产生歧义，报错
+
+
 
 ### 3.1.6 标识符命名规则
 
