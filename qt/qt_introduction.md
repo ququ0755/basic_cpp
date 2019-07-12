@@ -67,7 +67,11 @@ QT是一个跨平台的C++图形化用户界面应用程序框架，1991年由�
 
 3.  自定义类名称.h：创建时定义的第一个类的名字，如：MyWidget.h
 
-4.  自定义类名称.cpp：创建时定义的第一个类的名字，如：MyWidget.cpp
+4. 自定义类名称.cpp：创建时定义的第一个类的名字，如：MyWidget.cpp
+
+   **QT主要的模块如下**：![qt_modules](../assets/qt_modules.jpg)
+
+
 
 ### 6.1.2 基本控件接口
 
@@ -189,3 +193,56 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
      
      ```
 
+## 6.2 QMainWindow模块
+
+### 6.2.1 菜单栏
+
+菜单栏在窗体中有且只有一个，`include<QMenuBar>`。
+
+1. 定义：`QMenuBar * bar = QMenuBar;`
+2. 设置菜单到窗口中：`setMenuBar(bar);`
+3. 利用菜单栏添加菜单：`QMenu * fileMenu = bar->addMenu("文件")`
+4. 添加菜单项：`QAction * newAction = fileMenu->addAction("新建")；`
+5. 添加分割线：`fileMenu->addSeparator();`
+
+### 6.2.2 工具栏
+
+一个窗体中可以有多个工具栏，`include<QToolBar>`。
+
+1. 定义：`QToolBar * toolBar = QToolBar(this)`
+
+2. 设置工具栏到窗口中：`addToolBar(位置， toolBar)`
+
+   `位置：QT::LetfToolBarArea、QT::RightToolBarArea...`
+
+3. 设置允许停靠位置：
+
+   `toolBar->setAllowedArears(QT::LetfToolBarArea | QT::RightToolBarArea);`
+
+4. 设置浮动：`toolBar->setFloatable(false);`
+
+5. 设置移动，定义工具栏是否可移动的总开关
+
+   `toolBar->setMovable(false);`
+
+6. 工具栏中添加小控件：
+
+   - 添加按钮
+
+     ~~~c++
+     QPushButton * btn = new QPushButton(this);
+     toolBar->addWidget(btn);
+     ~~~
+
+     
+
+   - 添加菜单
+
+     ~~~c++
+     toolBar->addAction(newAction);
+     toolBar->addAction(openAction);
+     ~~~
+
+   
+
+### 6.2.3 状态栏
