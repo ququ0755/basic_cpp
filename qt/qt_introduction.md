@@ -173,14 +173,18 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 
 #### 6.1.3.3 lambda表达式
 
-   - 常用使用方法：[=](){}
+   - 常用使用方法：\[=\](){}
 
      ```c++
      connect(btn, &QPushButton::clicked, this, [=](){
          this.close();
      })
-         
      ```
+     
+     > 1.[var]表示值传递方式捕捉变量var； 
+     > 2.[=]表示值传递方式捕捉所有父作用域的变量（包括this）； 
+     > 3.[&var]表示引用传递捕捉变量var； 
+     > 4.[&]表示引用传递方式捕捉所有父作用域的变量（包括this）； 
 
    - 加上mutable修饰符后，可以修改按值传递进来的拷贝（**只是修改拷贝，而不是指本身**）
 
@@ -190,10 +194,9 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
      int n = []()->int { 
          return 10000; 
      };
-     
      ```
 
-## 6.2 QMainWindow模块
+## 6.2 QMainWindow
 
 ### 6.2.1 菜单栏
 
@@ -246,3 +249,109 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
    
 
 ### 6.2.3 状态栏
+
+状态栏在窗体中有且只有一个，头文件：`#include <QStatusBar>`
+
+1. 定义：`QStatusBar *status = statusBar;`
+
+2. 将状态栏设置到窗体中：`setStatusBar(status);`
+
+3. 可以在状态栏中设置提示信息
+
+   ```c++
+   QLabel *label1 = new QLabel("左侧信息",this);
+   status->addWidget(label1);   //在状态栏左侧放置提示信息
+   
+   QLabel *label2 = new QLabel(this);
+   status->addPermanentWidget("右侧信息",this) //从右侧开始方提示信息
+   ```
+
+### 6.2.4 铆接部件（浮动窗口）
+
+铆接部件（浮动窗口）在窗体中可以有多个，一般停靠在核心部件周围。头文件：`#include <QDockWidget>`
+
+1. 定义：`QDockWidget * dock = new QDockWidget("铆接部件",this);`
+2. 添加铆接部件到窗口中：`addDockWidget(QT::BottomDockWidgetArea, dock);`
+3. 设置铆接部件可停靠的位置：`dock->setAllowedArea(QT::TopDockWidgetArea|QT::BottomDockWidgetArea);`
+
+### 6.2.5 核心部件
+
+核心部件在窗口中有且只有一个。
+
+1. 设置核心部件：`setCentralWidget(widget*);`
+
+### 6.2.6资源文件
+
+创建项目时需要选择ui，并将资源文件导入项目。
+
+1. 添加资源文件：新建文件-> Qt -> Qt Resource File
+
+2. 自定义资源文件名称，生产资源文件，如：起名res，生成res.qrc文件
+
+3. 右键点击资源文件，选择"open in editor"，用编辑的方式打开资源文件
+
+4. 设置前缀：如："/"，资源文件的搜索根路径
+
+5. 添加文件：将所有需要使用的文件（如图标），导入工程
+
+6. 资源文件使用方式：" : + 前缀名 + 文件名"
+
+   ```c++
+   ui->actiongNew->SetIcon(QIcon(":/Image/Luffy.png"));
+   ```
+
+## 6.3 对话框
+
+### 6.3.1 分类
+
+1. 模态对话框：当对话框窗体被激活时，不能操作其他窗体
+
+   ```c++
+   connect（ui->actionNew, &QAction::triggered, [=](){
+       QDialog dlg(this);   //定义对话框
+   	dlg.resize(120,40);  //设置对话框大小，避免告警
+       dlg.exec();          //阻塞，对话框始终显示
+   })
+   ```
+   
+
+   
+2. 非模态对话框：当对话框长提被激活时，可以操作其他窗体
+
+   ```c++
+   connect（ui->actionNew, &QAction::triggered, [=](){
+       QDialog * dlg = new QDialog(this);   //定义对话框
+   	dlg->resize(120,40);                 //设置对话框大小，避免告警
+       dlg->show();                         //阻塞，对话框始终显示
+       // 设置对话框属性，当窗体被关闭时，同时回收资源，避免内存泄漏
+       // 属性值：55号
+       dlg->setAttribute(Qt::WA_DeleteOnClose); 
+   })  
+   ```
+
+   
+
+
+### 6.3.2 QMessageBox
+
+所有弹出的对话框都是模态对话框，利用静态成员函数可以提示不同的对话框
+
+1. 错误提示：`QMessageBox::critical(this, "error","错误");`
+
+2. 警告提示：`QMessageBox::warning(this, "warning","告警");`
+
+3. 信息提示：`QMessageBox::information(this, "info","信息");`
+
+4. 提问提示：
+
+   ```c++
+   QMessageBox::question(this, "question","问题", QMessageBox::Save | QMessageBox::Cancel, QMessageBox::Cancel);
+   ```
+   >参数1：父窗体
+   >参数2：窗体标题
+   >参数3：显示信息
+   >参数4：按键类型
+   >参数5：回车默认按键
+
+   
+
