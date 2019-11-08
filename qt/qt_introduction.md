@@ -163,8 +163,9 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
      
      void MyWidget::classIsOver()
      {
-         //使用**emit**出发信号
+         //使用**emit**出发信号,可同时发送重载的两个信号
          emit zt->hungry();
+         //emit zt->hungry("宫保鸡丁");
      }
      ```
      
@@ -200,7 +201,6 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
      
      void Student::treat()
      {
-     
          qDebug()<< "请老师吃饭";
      }
      
@@ -224,6 +224,45 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 
    - 信号和槽可以断开连接：**disconnect**
 
+     ```c++
+         //槽函数写法：
+         //1.返回void
+         //2.需要声明，需要实现
+         //3.可以重载
+         void treat();
+         void treat(QString foodName);
+     
+         //槽函数写法：
+         //1.返回void
+         //2.需要声明，需要实现
+         //3.可以重载
+         void treat();
+         void treat(QString foodName);
+     
+         // 槽函数实现
+         void Student::treat()
+         {
+             qDebug()<< "请老师吃饭";
+         }
+         void Student::treat(QString foodName)
+         {
+             // QString 转为 char *
+             qDebug()<< "请老师吃：" << foodName.toUtf8().data();
+         }
+     
+         // -- 链接信号并发送信号 --
+         // 当信号或槽发生重载时
+         // 需要使用函数指针明确调研的信号函数和槽函数
+     	// connect(zt, &Teacher::hungry, st, &Student::treat);	
+         void (Teacher:: * teacherSignal)(QString) = &Teacher::hungry;
+         void (Student:: * studentSlot)(QString) = &Student::treat;
+         connect(zt, teacherSignal, st, studentSlot);
+         //调用函数发送信号
+         classIsOver();
+         //断开链接
+         disconnect(zt, teacherSignal, st, studentSlot);
+     ```
+     
      > QString 转 char*：Qstring.toUtf8().data();
      >
      > 1. 使用toUtf8()转ByteArray
@@ -415,6 +454,6 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
    >参数4：按键类型
    >
    >参数5：回车默认按键
-   
+
    
 
