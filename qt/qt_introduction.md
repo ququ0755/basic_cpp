@@ -127,7 +127,6 @@ QT是一个跨平台的C++图形化用户界面应用程序框架，1991年由�
 // 参数3：信号的接收者
 // 参数4：接收者收到信号后，后续的动作
 connect(const QObject *sender, const QMetaMethod &signal, const QObject *receiver, const QMetaMethod &method, Qt::ConnectionType type = Qt::AutoConnection);
-
 ```
 
 #### 6.1.3.1 自定义的信号和槽函数
@@ -135,10 +134,41 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 1. 自定义信号
 
    - 在头文件**signals**下编写声明
+
    - 返回值void
+
    - 只需声明，无需实现
+
    - 可以重载
+
    - 使用**emit**出发信号
+
+     ```c++
+     class Teacher : public QObject
+     {
+         Q_OBJECT
+   public:
+         explicit Teacher(QObject *parent = nullptr);
+     
+         //自定义信号写到signals关键字处
+     signals:
+         //自定义信号写法：
+         //1.返回void
+         //2.只需声明，无需实现
+         //3.自定义的信号可以发生重载
+         void hungry();
+     
+     public slots:
+     };
+     
+     void MyWidget::classIsOver()
+     {
+         //使用**emit**出发信号
+         emit zt->hungry();
+     }
+     ```
+     
+     
 
 2. 自定义槽函数
 
@@ -149,6 +179,34 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
    - 必须声明和实现
 
    - 可以重载
+   
+     ```c++
+     class Student : public QObject
+     {
+       Q_OBJECT
+     public:
+         explicit Student(QObject *parent = nullptr);
+     
+     signals:
+     
+         //自定义槽函数，写到public slots处，或者是全局函数，或写到public下，或是lambda表达式
+     public slots:
+         //槽函数写法：
+         //1.返回void
+         //2.需要声明，需要实现
+         //3.可以重载
+         void treat();
+     };
+     
+     void Student::treat()
+     {
+     
+         qDebug()<< "请老师吃饭";
+     }
+     
+     ```
+     
+     
 
 #### 6.1.3.2 信号和槽的拓展
 
@@ -180,10 +238,13 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
          this.close();
      })
      ```
-     
+
      > 1.[var]表示值传递方式捕捉变量var； 
+     >
      > 2.[=]表示值传递方式捕捉所有父作用域的变量（包括this）； 
+     >
      > 3.[&var]表示引用传递捕捉变量var； 
+     >
      > 4.[&]表示引用传递方式捕捉所有父作用域的变量（包括this）； 
 
    - 加上mutable修饰符后，可以修改按值传递进来的拷贝（**只是修改拷贝，而不是指本身**）
@@ -202,7 +263,7 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 
 菜单栏在窗体中有且只有一个，`include<QMenuBar>`。
 
-1. 定义：`QMenuBar * bar = QMenuBar;`
+1. 定义：`QMenuBar * bar = menuBar();`
 2. 设置菜单到窗口中：`setMenuBar(bar);`
 3. 利用菜单栏添加菜单：`QMenu * fileMenu = bar->addMenu("文件")`
 4. 添加菜单项：`QAction * newAction = fileMenu->addAction("新建")；`
@@ -212,15 +273,15 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 
 一个窗体中可以有多个工具栏，`include<QToolBar>`。
 
-1. 定义：`QToolBar * toolBar = QToolBar(this)`
+1. 定义：`QToolBar * toolBar = new QToolBar(this)`
 
 2. 设置工具栏到窗口中：`addToolBar(位置， toolBar)`
 
-   `位置：QT::LetfToolBarArea、QT::RightToolBarArea...`
+   `位置：Qt::LetfToolBarArea、Qt::RightToolBarArea...`
 
 3. 设置允许停靠位置：
 
-   `toolBar->setAllowedArears(QT::LetfToolBarArea | QT::RightToolBarArea);`
+   `toolBar->setAllowedArears(Qt::LetfToolBarArea | Qt::RightToolBarArea);`
 
 4. 设置浮动：`toolBar->setFloatable(false);`
 
@@ -237,15 +298,13 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
      toolBar->addWidget(btn);
      ~~~
 
-     
-
    - 添加菜单
 
      ~~~c++
-     toolBar->addAction(newAction);
+   toolBar->addAction(newAction);
      toolBar->addAction(openAction);
      ~~~
-
+   
    
 
 ### 6.2.3 状态栏
@@ -271,8 +330,8 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 铆接部件（浮动窗口）在窗体中可以有多个，一般停靠在核心部件周围。头文件：`#include <QDockWidget>`
 
 1. 定义：`QDockWidget * dock = new QDockWidget("铆接部件",this);`
-2. 添加铆接部件到窗口中：`addDockWidget(QT::BottomDockWidgetArea, dock);`
-3. 设置铆接部件可停靠的位置：`dock->setAllowedArea(QT::TopDockWidgetArea|QT::BottomDockWidgetArea);`
+2. 添加铆接部件到窗口中：`addDockWidget(Qt::BottomDockWidgetArea, dock);`
+3. 设置铆接部件可停靠的位置：`dock->setAllowedArea(Qt::TopDockWidgetArea|Qt::BottomDockWidgetArea);`
 
 ### 6.2.5 核心部件
 
@@ -280,7 +339,7 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
 
 1. 设置核心部件：`setCentralWidget(widget*);`
 
-### 6.2.6资源文件
+### 6.2.6 资源文件
 
 创建项目时需要选择ui，并将资源文件导入项目。
 
@@ -348,10 +407,14 @@ connect(const QObject *sender, const QMetaMethod &signal, const QObject *receive
    QMessageBox::question(this, "question","问题", QMessageBox::Save | QMessageBox::Cancel, QMessageBox::Cancel);
    ```
    >参数1：父窗体
+   >
    >参数2：窗体标题
+   >
    >参数3：显示信息
+>
    >参数4：按键类型
+   >
    >参数5：回车默认按键
-
+   
    
 
