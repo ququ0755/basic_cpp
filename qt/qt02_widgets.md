@@ -72,13 +72,20 @@
 
 1. 定义：`QDockWidget * dock = new QDockWidget("铆接部件",this);`
 2. 添加铆接部件到窗口中：`addDockWidget(Qt::BottomDockWidgetArea, dock);`
-3. 设置铆接部件可停靠的位置：`dock->setAllowedArea(Qt::TopDockWidgetArea|Qt::BottomDockWidgetArea);`
+3. 设置铆接部件可停靠的位置：`dock->setAllowedAreas(Qt::TopDockWidgetArea|Qt::BottomDockWidgetArea);`
 
 ## 4.2.5 核心部件
 
 核心部件在窗口中有且只有一个。
 
 1. 设置核心部件：`setCentralWidget(widget*);`
+
+   ```c++
+   QTextEdit * textEdit = new QTextEdit(this);
+   setCentralWidget(textEdit);
+   ```
+
+   
 
 ## 4.2.6 资源文件
 
@@ -131,7 +138,7 @@
 
    
 
-### 4.2.7.2 QMessageBox
+### 4.2.7.2 QMessageBox消息对话框
 
 所有弹出的对话框都是模态对话框，利用静态成员函数可以提示不同的对话框
 
@@ -158,4 +165,53 @@
    > 参数5：回车默认按键
 
    
+
+### 4.2.7.2 QFileDialog文件对话框
+
+打开文件对话框
+
+```c++
+connect(actNew, &QAction::triggered, [=](){
+        //文件对话框
+        //参数1：父窗口 参数2：标题 参数3：打开默认路径 参数4：过滤后缀名
+        //返回值：打开文件的完整路径
+        QString filename = QFileDialog::getOpenFileName(this,"openMe","/","*.doc");
+        qDebug()<<"点击"<<filename;
+    });
+```
+
+### 4.2.7.3 QColorDialog颜色对话框
+
+```c++
+#include<QColorDialog>
+//QColor参数
+//      r:红 g:绿 b:蓝 a:透明度(默认255，不透明)
+//QColor color = QColorDialog::getColor(QColor(int r, int g, int b, int a));
+QColor color = QColorDialog::getColor(QColor(255,0,0));
+qDebug() << color.red() << " " << color.green() << " " << color.blue();
+```
+
+### 4.2.7.4 QFontDialog字体对话框
+
+```c++
+#include<QFontDialog>
+
+bool ok;//是否有找到对应字体
+//QFont参数
+//     family:字体， pointSize:字号
+//QFont font = QFontDialog::getFont(&ok, QFont(QString &family, int pointSize));
+QFont font = QFontDialog::getFont(&ok, QFont("宋体", 33));
+qDebug() << font.family()<< " " << font.pointSize()<< " " << font.italic() << " " << font.bold();
+```
+
+## 4.2.8 界面布局
+
+1. 利用widget做控件容器，在容器中可以进行水平布局、垂直布局、grid布局等
+2. 使用弹簧控件，支撑布局中各控件直接的间隙
+3. widget如果需要修改垂直大小，垂直策略改为fixed
+4. 可以修改widget 和控件之间的间隙，默认9 pixel，在layout -> margin
+
+## 4.2.9 常用控件
+
+
 
