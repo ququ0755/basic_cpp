@@ -1,6 +1,8 @@
 # 4.2 QT基本控件
 
-## 4.2.1 菜单栏
+## 4.2.1 QT窗体
+
+### 4.2.1.1 菜单栏
 
 菜单栏在窗体中有且只有一个，`include<QMenuBar>`。
 
@@ -10,7 +12,7 @@
 4. 添加菜单项：`QAction * newAction = fileMenu->addAction("新建")；`
 5. 添加分割线：`fileMenu->addSeparator();`
 
-## 4.2.2 工具栏
+### 4.21..2 工具栏
 
 一个窗体中可以有多个工具栏，`include<QToolBar>`。
 
@@ -48,7 +50,7 @@
 
    
 
-## 4.2.3 状态栏
+### 4.2.1.3 状态栏
 
 状态栏在窗体中有且只有一个，头文件：`#include <QStatusBar>`
 
@@ -66,7 +68,7 @@
    status->addPermanentWidget("右侧信息",this) //从右侧开始方提示信息
    ```
 
-## 4.2.4 铆接部件（浮动窗口）
+### 4.2.1.4 铆接部件（浮动窗口）
 
 铆接部件（浮动窗口）在窗体中可以有多个，一般停靠在核心部件周围。头文件：`#include <QDockWidget>`
 
@@ -74,7 +76,7 @@
 2. 添加铆接部件到窗口中：`addDockWidget(Qt::BottomDockWidgetArea, dock);`
 3. 设置铆接部件可停靠的位置：`dock->setAllowedAreas(Qt::TopDockWidgetArea|Qt::BottomDockWidgetArea);`
 
-## 4.2.5 核心部件
+### 4.2.1.5 核心部件
 
 核心部件在窗口中有且只有一个。
 
@@ -87,7 +89,7 @@
 
    
 
-## 4.2.6 资源文件
+## 4.2.2 资源文件
 
 创建项目时需要选择ui，并将资源文件导入项目。
 
@@ -107,9 +109,9 @@
    ui->actiongNew->SetIcon(QIcon(":/Image/Luffy.png"));
    ```
 
-## 4.2.7 对话框
+## 4.2.3 对话框
 
-### 4.2.7.1 分类
+### 4.2.3.1 QDialog对话框
 
 1. 模态对话框：当对话框窗体被激活时，不能操作其他窗体
 
@@ -138,7 +140,7 @@
 
    
 
-### 4.2.7.2 QMessageBox消息对话框
+### 4.2.3.2 QMessageBox消息对话框
 
 所有弹出的对话框都是模态对话框，利用静态成员函数可以提示不同的对话框
 
@@ -166,7 +168,7 @@
 
    
 
-### 4.2.7.2 QFileDialog文件对话框
+### 4.2.3.3 QFileDialog文件对话框
 
 打开文件对话框
 
@@ -180,7 +182,7 @@ connect(actNew, &QAction::triggered, [=](){
     });
 ```
 
-### 4.2.7.3 QColorDialog颜色对话框
+### 4.2.3.4 QColorDialog颜色对话框
 
 ```c++
 #include<QColorDialog>
@@ -191,7 +193,7 @@ QColor color = QColorDialog::getColor(QColor(255,0,0));
 qDebug() << color.red() << " " << color.green() << " " << color.blue();
 ```
 
-### 4.2.7.4 QFontDialog字体对话框
+### 4.2.3.5 QFontDialog字体对话框
 
 ```c++
 #include<QFontDialog>
@@ -204,7 +206,7 @@ QFont font = QFontDialog::getFont(&ok, QFont("宋体", 33));
 qDebug() << font.family()<< " " << font.pointSize()<< " " << font.italic() << " " << font.bold();
 ```
 
-## 4.2.8 界面布局
+## 4.2.4 界面布局
 
 1. 利用widget做控件容器，在容器中可以进行水平布局、垂直布局、grid布局等
 2. 使用弹簧控件，支撑布局中各控件直接的间隙
