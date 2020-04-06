@@ -213,7 +213,68 @@ qDebug() << font.family()<< " " << font.pointSize()<< " " << font.italic() << " 
 3. widget如果需要修改垂直大小，垂直策略改为fixed
 4. 可以修改widget 和控件之间的间隙，默认9 pixel，在layout -> margin
 
-## 4.2.9 常用控件
+## 4.2.5 常用控件
+
+### 4.2.5.1 按钮
+
+1. Push Button：普通按钮，默认显示文字，在icon属性中可以设置图标
+
+2. Tool Button：工具按钮，默认只显示图片，在toolButtonStyle属性中可以修改文字的显示方式
+
+3. Radio Button：单选按钮，分组需配合GroupBox一起使用
+
+   ```c++
+   //radio button: set the default value设置默认值
+   ui->btn_man->setChecked(true);
+   ```
+
+4. Check Box：复选按钮
+
+   ```c++
+   //check box:get the check box's value
+   // 0：未选中
+   // 1：半选中
+   // 2：选中
+   connect(ui->checkBox, &QCheckBox::stateChanged, [=](int state){
+       qDebug()<< "state=" << state;
+   });
+   ```
+
+### 4.2.5.2 QListWidget插件
+
+​    `QListWidget`每一行的项目都称为`QListWidgetItem`。
+
+1. 单项添加
+
+   ```c++
+   //list widget
+   //使用 QString::fromLocal8Bit 来将本地字符编码转换为 Unicode 形式的 QString
+   QListWidgetItem * item = new QListWidgetItem(QString::fromLocal8Bit("春眠不觉晓"));
+   // add the list item to list widget
+   ui->listWidget->addItem(item);
+   // set list alignment，只有单项添加的时候才可以设置每个项目的对齐方式
+   item->setTextAlignment(Qt::AlignHCenter);
+   ```
+
+
+2. 多项添加
+
+   ```c++
+   QStringList list; //List<QString>
+   // 初始化list
+   list << QString::fromLocal8Bit("春眠不觉晓") << QString::fromLocal8Bit("处处闻啼鸟") \
+        << QString::fromLocal8Bit("夜来风雨声") << QString::fromLocal8Bit("花落知多少");
+   //将list添加到QListWidget
+   ui->listWidget->addItems(list);
+   ```
+
+### 4.2.5.3 QTreeWidget插件
+
+### 4.2.5.4 QTableWidget插件
+
+### 4.2.5.5 其他常用控件
+
+## 4.2.6 自定义控件
 
 
 

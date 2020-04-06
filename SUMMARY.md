@@ -21,5 +21,6 @@
 * [4. QT基础](qt/README.md)
     * [4.1 QT概述](qt/qt01_introduction.md)
     * [4.2 QT基本控件 ](qt/qt02_widgets.md)
+    * [4.3 QT事件 ](qt/qt03_events.md)
 * [附录](appendix.md)
 
