@@ -353,7 +353,51 @@ qDebug() << font.family()<< " " << font.pointSize()<< " " << font.italic() << " 
 
 ### 4.2.5.5 其他常用控件
 
+1. 栈控件（stacked widget）：设置显示的活动栈 `ui->stackedWidget->setCurrentIndex(1);`
+
+2. 下拉框（combo box）
+
+   - 添加下拉项：`  ui->combo_box->addItem(QString::fromLocal8Bit("英雄"));`
+
+   - 设置当前的显示内容：`ui->combo_box->setCurrentIndex(1);`
+
+3. 标签控件（Label）
+
+   - 利用Label显示图片
+
+     ```c++
+     //利用label显示图片
+     ui->label_img->setPixmap(QPixmap(":/img/test.png"));
+     ```
+
+   - 利用Label显示动图
+
+     ```c++
+     //利用label显示动图
+     QMovie *qMovie = new QMovie(":/img/test.gif");
+     ui->label_gif->setMovie(qMovie);
+     //动图需要使用start方法来播放
+     qMovie->start();
+     ```
+
+     
+
 ## 4.2.6 自定义控件
 
+1. 添加qt类：Qt->设计师界面类，将自动生成：cpp、h、ui文件，如SmallWidget
 
+2. 提升widget：在使用该类的界面中提升widget为新建的类（SmallWidget）
 
+3. 修改自定义控件：定义自定义控件中的相关功能
+
+   ```c++
+   //spinbox 值修改的时候 进度条也跟着修改
+   //原信号存在重载，需要定义函数指针明确使用哪一个信号函数
+   void (QSpinBox:: * smallSignal)(int) = &QSpinBox::valueChanged;
+   connect(ui->spinBox,smallSignal, ui->hSlider, &QSlider::setValue);
+   
+   //进度条修改的时候 spinbox的值跟着修改
+   connect(ui->hSlider,&QSlider::valueChanged, ui->spinBox, &QSpinBox::setValue);
+   ```
+
+   
